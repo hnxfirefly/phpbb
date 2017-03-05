@@ -39,6 +39,20 @@ services:
         tags:
             - { name: auth.provider }
 
+    auth.provider.lansuite:
+        class: phpbb\auth\provider\lansuite
+        arguments:
+            - '@dbal.conn'
+            - '@config'
+            - '@passwords.manager'
+            - '@request'
+            - '@user'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+        tags:
+            - { name: auth.provider }
+
+
     auth.provider.ldap:
         class: phpbb\auth\provider\ldap
         arguments:
