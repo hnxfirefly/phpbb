@@ -53,14 +53,15 @@ class lansuite extends \phpbb\auth\provider\base
 	public function init()
 	{
 
-		$sql = 'show columns from lstesthnx.phpbb2_users where field like "user_uuid"';
+		$sql = 'show columns from '.USERS_TABLE.' where field like "user_uuid"';
 		$result = $this->db->sql_query($sql);
-		$user_uuid_exists = $result->num_rows === 1;
+		$user_uuid_notexists = $result->num_rows === 1;
 		$this->db->sql_freeresult($result);
+		var_dump ($user_uuid_exists);
 
-		if (!$user_uuid_exists)
+		if ($user_uuid_notexists)
 		{	
-			$sql = "ALTER TABLE `lstesthnx`.`phpbb2_users` 
+			$sql = "ALTER TABLE ".USERS_TABLE." 
 				ADD COLUMN `user_uuid` INT(11)" ;
 			$result = $this->db->sql_query($sql);
 			$success = $result;
